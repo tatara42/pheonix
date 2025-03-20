@@ -18,7 +18,7 @@ async function main() {
     app.use(express.json());
 
     app.get("/", (req, res) => {
-      res.send("Hello, World!");
+      res.send("Fly Fly, Pheonix, Fly!");
     })
 
     app.get("/gadgets", async (req, res) => {
