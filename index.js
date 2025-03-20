@@ -3,7 +3,7 @@ const pg = require("pg");
 require("dotenv").config();
 
 const PG_CONNECTION_STRING = process.env.PG_CONNECTION_STRING
-
+const PORT = process.env.PORT || 8080
 
 async function main() {
 
@@ -15,8 +15,6 @@ async function main() {
     console.log("Successfully Connected");
 
     const app = express();
-    PORT = 3000;
-
     app.use(express.json());
 
     app.get("/", (req, res) => {
@@ -165,7 +163,7 @@ async function main() {
     })
 
     app.listen(PORT, () => {
-      console.log(`Listening on http://localhost:${PORT}`);
+      console.log(`Successfully Serving`);
     });
 
     process.on('SIGINT', async () => {
@@ -182,19 +180,10 @@ async function main() {
 }
 
 function getGadgetNamesWithMissionSuccess(rows) {
-  /**
-   * Retrieves a list of gadget names from the given rows, along with a randomly
-   * generated mission success probability percentage for each gadget.
-   *
-   * @param {Array<object>} rows - An array of objects, where each object represents a row and
-   * contains a "name" key.
-   * @returns {Array<string>} - An array of strings, where each string represents a gadget name and its
-   * mission success probability (e.g., "The Nightingale - 87% success probability").
-   */
   const result = [];
   for (const row of rows) {
     if (row.hasOwnProperty("name")) {
-      const successProbability = Math.floor(Math.random() * 101); // Generates a random integer between 0 and 100
+      const successProbability = Math.floor(Math.random() * 101); 
       result.push(`${row.name} - ${successProbability}% success probability`);
     }
   }
@@ -206,8 +195,3 @@ function getCodename() {
 }
 
 main();
-
-
-
-//curl -X POST -H '"Content-Type": "application/json"' -d '{"name": "Parachute", "status":"Available"}' http://localhost:3000/gadgets
-//curl -X POST -H "Content-Type: application/json" -d '{"name": "New Gadget", "status": "available"}' http://localhost:3000/gadgets
