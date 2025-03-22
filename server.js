@@ -203,6 +203,9 @@ async function main() {
 
         res.status(200).json({ message: "Gadget Successfully Updated!" });
       } catch (err) {
+        if (err.code == 23514){
+          return res.status(400).json({message: "Status should be Available, Deployed, Decommissioned, Destroyed!"})
+        }
         console.error("Error patching gadget:", err);
         return res.status(500).json({ message: "Internal server error!" });
       }
