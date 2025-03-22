@@ -346,6 +346,34 @@ async function main() {
       process.exit();
     });
 
+
+    // recursion
+    async function restartClient() {
+      try {
+        const newClient = new pg.Client({
+          connectionString: PG_CONNECTION_STRING,
+        });
+        await newClient.connect();
+        console.log("Client restarted successfully.");
+
+        client = newClient;
+
+        client.on("error", async (err) => {
+           console.error("PostgreSQL client error:", err);
+           console.log("Attempting to restart client...");
+           try {
+              await client.end();
+              await restartClient();
+           } catch (restartErr){
+              console.error("Error restarting client:", restartErr);
+           }
+        });
+
+      } catch (connectErr) {
+        console.error("Failed to connect during restart:", connectErr);
+      }
+    }
+
   } catch (err) {
     console.error("Error during startup:", err);
     process.exit(1);
