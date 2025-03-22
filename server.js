@@ -13,10 +13,16 @@ async function main() {
     await client.connect();
     console.log("Successfully Connected");
 
-    client.on("error", (err) => {
+    client.on("error", async (err) => {
       console.error("PostgreSQL client error:", err);
+      console.log("Attempting to restart client...");
+      try {
+        await client.end(); 
+        await restartClient(); 
+      } catch (restartErr) {
+        console.error("Error restarting client:", restartErr);
+      }
     });
-
     const app = express();
     app.use(express.json());
 
