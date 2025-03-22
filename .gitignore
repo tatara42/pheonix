@@ -49,3 +49,8 @@ Desktop.ini
 *.swp
 *.swo
 .DS_Store
+
+# bun
+bun.lock
+
+package-lock.json
