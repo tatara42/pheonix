@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 8080;
 
 async function main() {
   try {
-    const client = new pg.Client({
+    let client = new pg.Client({
       connectionString: PG_CONNECTION_STRING,
     });
     await client.connect();
