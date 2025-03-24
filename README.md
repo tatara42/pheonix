@@ -37,47 +37,59 @@ gadgets:
 1. Root Endpoint
 
     GET /
-        Description: Returns a welcome message.
+   
+        Returns a welcome message.
         Response: "Fly Fly, Pheonix, Fly!"
 
-2. User Authentication
+3. User Authentication
 
     POST /login:
+   
         Authenticates a user and generates access and refresh tokens.
    
     POST /signout:
+   
         Invalidates a refresh token.
    
     POST /token:
         Generates a new access token using a refresh token.
    
     POST /register:
+   
         Registers a new user.
 
-4. Gadget Management
+5. Gadget Management
     Authorization: Requires a valid access token.
    
     GET /gadgets/:id:
+   
         Retrieves a gadget by ID.
     GET /gadgets:
+   
         Retrieves a list of gadgets, optionally filtered by status.
    
     POST /gadgets:
+   
         Creates a new gadget with a randomly generated name and "Available" status.
    
     PATCH /gadgets:
+   
         Updates a gadget's name or status.
    
     DELETE /gadgets:
+   
         Decommissions a gadget by setting its status to "Decommissioned".
    
     POST /gadgets/:id/self-destruct:
+   
         Generates a confirmation code for gadget self-destruction.
    
     POST /gadgets/:id/confirm-self-destruct:
+   
         Destroys a gadget after confirmation with the generated code.
    
     POST /gadgets/:id/confirm-thanos:
+   
         Deletes a gadget permanently from the database.
    
 ### Deploying
